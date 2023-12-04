@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 import 'package:styled_widget/styled_widget.dart';
 
 import '../../../core/themes/theme.dart';
 import '../../widgets/densed_button.dart';
+import '../../widgets/secondary_button.dart';
 import '../../widgets/study_icons.dart';
 import 'viewmodels/myroom_viewmodel.dart';
 
@@ -89,7 +91,45 @@ class _MyRoomPageState extends ConsumerState<MyRoomPage>
             child: Column(
               children: [
                 _buildMyRoomCard(
-                  onPressed: () {},
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return Dialog(
+                          shape: RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.circular(defaultBorderRadius),
+                          ),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              const SizedBox(height: 20),
+                              const Text(
+                                'Scan kode QR saat check-in',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                              const SizedBox(height: 20),
+                              QrImageView(
+                                data: '1234567890',
+                                version: QrVersions.auto,
+                                size: 230,
+                              ),
+                              const SizedBox(height: 40),
+                              SecondaryButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                label: 'Tutup',
+                              ).constrained(width: size.width),
+                            ],
+                          ).padding(all: 20),
+                        );
+                      },
+                    );
+                  },
                   buttonLabel: 'Lihat QR Code',
                   icon: Icons.qr_code_rounded,
                 ),

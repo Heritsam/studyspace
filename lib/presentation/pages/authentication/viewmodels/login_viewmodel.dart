@@ -5,10 +5,8 @@ final loginViewModel =
     ChangeNotifierProvider.autoDispose((ref) => LoginViewModel());
 
 class LoginViewModel extends ChangeNotifier {
-  
   bool isLoading = false;
   bool isObscured = true;
-
 
   void toggleObscure() {
     isObscured = !isObscured;
